@@ -49,4 +49,3 @@ and remotely.
 - Feedback submissions should be visible to the apartment manager/owner for review and improvement.
 
 
-# This is a test line
