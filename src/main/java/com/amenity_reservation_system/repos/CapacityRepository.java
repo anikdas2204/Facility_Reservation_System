@@ -9,4 +9,5 @@ import java.util.List;
 public interface CapacityRepository extends JpaRepository<Capacity, Long> {
 
     Capacity findByAmenityType(AmenityType amenityType);
+    List<Capacity> findByAmenityTypeIn(List<AmenityType> amenities);
 }

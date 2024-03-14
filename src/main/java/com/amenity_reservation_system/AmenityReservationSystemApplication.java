@@ -18,9 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @SpringBootApplication
 public class AmenityReservationSystemApplication {
@@ -43,24 +41,36 @@ public class AmenityReservationSystemApplication {
       UserRepository userRepository,
       CapacityRepository capacityRepository) {
     return (args) -> {
-      userRepository.save(
-              new User("Anik Das", "dasanik", bCryptPasswordEncoder().encode("12345")));
 
-      userRepository.save(
-              new User("Tushar Jaiswal", "jaiswaltushar", bCryptPasswordEncoder().encode("12345")));
+      List<String> usernamesToCheck = Arrays.asList("dasanik", "jaiswaltushar", "prashant", "ansarishoib", "singhaparna");
+      List<User> existingUsers = userRepository.findUserByUsernameIn(usernamesToCheck);
 
-      userRepository.save(
-              new User("Prashant Prashant", "prashant", bCryptPasswordEncoder().encode("12345")));
+      if (existingUsers.isEmpty()) {
+        userRepository.save(
+                new User("Anik Das", "dasanik", bCryptPasswordEncoder().encode("12345")));
 
-      userRepository.save(
-              new User("Shoib Ansari", "ansarishoib", bCryptPasswordEncoder().encode("12345")));
+        userRepository.save(
+                new User("Tushar Jaiswal", "jaiswaltushar", bCryptPasswordEncoder().encode("12345")));
 
-      userRepository.save(
-              new User("Aparna Singh", "singhaparna", bCryptPasswordEncoder().encode("12345")));
+        userRepository.save(
+                new User("Prashant Prashant", "prashant", bCryptPasswordEncoder().encode("12345")));
 
-      for (AmenityType amenityType : initialCapacities.keySet()) {
-        capacityRepository.save(new Capacity(amenityType, initialCapacities.get(amenityType)));
+        userRepository.save(
+                new User("Shoib Ansari", "ansarishoib", bCryptPasswordEncoder().encode("12345")));
+
+        userRepository.save(
+                new User("Aparna Singh", "singhaparna", bCryptPasswordEncoder().encode("12345")));
       }
+
+      List<AmenityType> capacityTypesToCheck = Arrays.asList(AmenityType.POOL, AmenityType.GYM, AmenityType.SAUNA);
+      List<Capacity> existingCapacities = capacityRepository.findByAmenityTypeIn(capacityTypesToCheck);
+
+      if(existingCapacities.isEmpty()) {
+        for (AmenityType amenityType : initialCapacities.keySet()) {
+          capacityRepository.save(new Capacity(amenityType, initialCapacities.get(amenityType)));
+        }
+      }
+
     };
   }
 
