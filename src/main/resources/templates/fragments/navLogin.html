@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+<nav th:fragment="nav" class="navbar navbar-expand navbar-dark bg-primary">
+    <div class="navbar-nav w-100">
+        <a class="navbar-brand text-color" href="/">Facilities Reservation System</a>
+    </div>
+    <a sec:authorize="isAnonymous()"
+       class="navbar-brand text-color" th:href="@{/signup}">Sign Up</a>
+</nav>
+</body>
+</html>
